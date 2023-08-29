@@ -124,16 +124,15 @@ int main(void)
     /* USER CODE BEGIN 3 */
 
 	// TODO: Check button PA0; if pressed, change timer delay
-	  if ((0b1111 & ~(GPIOA -> IDR)) == 1) {
+	  if ( !( LL_GPIO_ReadInputPort (Button0_GPIO_Port) & Button0_Pin ) ) {
 		  sec = !sec;
+		  if (sec) {
+			htim16.Init.Period = 1000 - 1;
+		  } else {
+			htim16.Init.Period = 500;
+		  }
+		  HAL_TIM_Base_Init(&htim16);
 	  }
-	  if (sec) {
-		  TIM16 -> ARR = 1000 - 1;
-	  } else {
-		  TIM16 -> ARR = 500;
-	  }
-
-
   }
   /* USER CODE END 3 */
 }
