@@ -46,7 +46,6 @@
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
 #define TRUE 1
-#define FALSE 0
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -56,7 +55,7 @@ TIM_HandleTypeDef htim16;
 // TODO: Define any input variables
 static uint8_t patterns[] = {0b10101010, 0b01010101, 0b11001100, 0b00110011, 0b11110000, 0b00001111};
 uint16_t addr = 0, curr = 0;
-uint8_t sec = TRUE, half = FALSE;
+uint8_t sec = TRUE;
 
 /* USER CODE END PV */
 
@@ -127,11 +126,10 @@ int main(void)
 	// TODO: Check button PA0; if pressed, change timer delay
 	  if ((0b1111 & ~(GPIOA -> IDR)) == 1) {
 		  sec = !sec;
-		  half = !half;
 	  }
 	  if (sec) {
 		  TIM16 -> ARR = 1000 - 1;
-	  } else if (half) {
+	  } else {
 		  TIM16 -> ARR = 500;
 	  }
 
