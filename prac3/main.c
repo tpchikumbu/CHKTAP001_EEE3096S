@@ -347,7 +347,8 @@ static void MX_GPIO_Init(void)
 void EXTI0_1_IRQHandler(void)
 {
 	// TODO: Add code to switch LED7 delay frequency
-  if (delay_t == 500) { 
+  curr_millis = HAL_GetTick(); //Get current time on system clock
+  if ((delay_t == 500) && (curr_millis >= 500)) { //Wait 500ms between presses
     delay_t = 1000; //Period for 1Hz
   }
 	else delay_t = 500; //Period for 2Hz
